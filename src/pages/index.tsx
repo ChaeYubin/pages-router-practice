@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Link from "next/link";
-import s from "../styles/Home.module.css";
+import s from "@/styles/Home.module.css";
 import { CurrentWeatherResponse } from "@/types/CurrentWeatherResponse";
 import { InferGetServerSidePropsType } from "next";
 
@@ -46,7 +46,15 @@ export default function Home({
               <span className={s.boldText}>{location.locationKR}의 날씨</span>는{" "}
               {currentWeather[index]}
               <br />
-              <Link href={`${location.location}`}>
+              <Link
+                href={{
+                  pathname: `${location.location}`,
+                  query: {
+                    location: location.location,
+                    locationKR: location.locationKR,
+                  },
+                }}
+              >
                 <p className={s.aText}>3일 예보 확인하기</p>
               </Link>
             </li>
