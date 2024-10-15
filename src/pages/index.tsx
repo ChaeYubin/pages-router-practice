@@ -1,5 +1,7 @@
 import Head from "next/head";
 import Link from "next/link";
+import s from "../styles/Home.module.css";
+
 export default function Home() {
   return (
     <>
@@ -10,7 +12,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div>
-        <ul>
+        <ul className={s.list}>
           <li>
             <Link href="/Seoul">서울</Link>
           </li>
