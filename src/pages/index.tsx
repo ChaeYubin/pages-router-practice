@@ -3,6 +3,7 @@ import s from "@/styles/Home.module.css";
 import { InferGetServerSidePropsType } from "next";
 import { getCurrentWeather } from "@/utils/weather";
 import CurrentWeatherItem from "@/components/CurrentWeatherItem";
+import { getTime } from "@/utils/timeZone";
 
 const cities = [
   { name: "서울", code: "seoul" },
@@ -17,11 +18,15 @@ export const getServerSideProps = async () => {
     citiesCode.map((code) => getCurrentWeather(code))
   );
 
-  return { props: { currentWeather } };
+  const time = await Promise.all(
+    currentWeather.map((weather) => getTime(weather.location.tz_id))
+  );
+  return { props: { currentWeather, time } };
 };
 
 export default function Home({
   currentWeather,
+  time,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return (
     <>
@@ -40,6 +45,7 @@ export default function Home({
               cityCode={city.code}
               cityName={city.name}
               weather={currentWeather[index].current.condition.text}
+              time={time[index].dateTime}
             />
           ))}
         </ul>

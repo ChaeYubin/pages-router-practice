@@ -5,13 +5,15 @@ interface Props {
   cityCode: string;
   cityName: string;
   weather: string;
+  time: string;
 }
 
-const CurrentWeatherItem = ({ cityCode, cityName, weather }: Props) => {
+const CurrentWeatherItem = ({ cityCode, cityName, weather, time }: Props) => {
   return (
     <li key={cityCode}>
       <span className={s.boldText}>{cityName}의 날씨</span>는 {weather}
       <br />
+      <p>time: {time}</p>
       <Link
         href={{
           pathname: `${cityCode}`,
