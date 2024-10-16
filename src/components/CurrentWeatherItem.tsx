@@ -16,7 +16,6 @@ const CurrentWeatherItem = ({ cityCode, cityName, weather }: Props) => {
         href={{
           pathname: `${cityCode}`,
           query: {
-            code: cityCode,
             name: cityName,
           },
         }}
