@@ -1,6 +1,6 @@
 import Head from "next/head";
 import s from "@/styles/Home.module.css";
-import { InferGetServerSidePropsType } from "next";
+import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import { getCurrentWeather } from "@/utils/weather";
 import CurrentWeatherItem from "@/components/CurrentWeatherItem";
 import { getTime } from "@/utils/timeZone";
@@ -11,7 +11,9 @@ const cities = [
   { name: "파리", code: "paris" },
 ];
 
-export const getServerSideProps = async () => {
+export const getServerSideProps = async ({
+  res,
+}: GetServerSidePropsContext) => {
   const citiesCode = cities.map((city) => city.code);
 
   const currentWeather = await Promise.all(
@@ -21,6 +23,12 @@ export const getServerSideProps = async () => {
   const time = await Promise.all(
     currentWeather.map((weather) => getTime(weather.location.tz_id))
   );
+
+  res.setHeader(
+    "Cache-Control",
+    "public, max-age=10, stale-while-revalidate=59"
+  );
+
   return { props: { currentWeather, time } };
 };
 
