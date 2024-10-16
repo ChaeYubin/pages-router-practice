@@ -2,7 +2,7 @@ import Button from "@/components/Button";
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import { useRouter } from "next/router";
 import s from "@/styles/LocationDetail.module.css";
-import { getForecast } from "@/api/weather";
+import { getForecast } from "@/utils/weather";
 import ForecastItem from "@/components/ForecastItem";
 
 export const getServerSideProps = async (

@@ -1,7 +1,7 @@
 import Head from "next/head";
 import s from "@/styles/Home.module.css";
 import { InferGetServerSidePropsType } from "next";
-import { getCurrentWeather } from "@/api/weather";
+import { getCurrentWeather } from "@/utils/weather";
 import CurrentWeatherItem from "@/components/CurrentWeatherItem";
 
 const cities = [
